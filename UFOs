@@ -1,0 +1,25 @@
+#Checking column types
+
+# Print the DataFrame info
+print(ufo.info())
+
+# Change the type of seconds to float
+ufo["seconds"] = ufo["seconds"].astype(float)
+
+# Change the date column to type datetime
+ufo["date"] = pd.to_datetime(ufo["date"])
+
+# Check the column types
+print(ufo.info())
+
+#Dropping missing data
+# Count the missing values in the length_of_time, state, and type columns, in that order
+print(ufo[['length_of_time', 'state', 'type']].isnull().sum())
+
+# Drop rows where length_of_time, state, or type are missing
+ufo_no_missing = ufo[ufo['length_of_time'].notnull() &
+                        ufo['state'].notnull() &
+                        ufo['type'].notnull()]
+
+# Print out the shape of the new dataset
+print(ufo_no_missing.shape)
